@@ -1,6 +1,7 @@
+import 'package:evently/app_provider/app_provider.dart';
 import 'package:evently/extenstions/build_context_extenstion.dart';
-import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FirstScreen extends StatefulWidget {
   static String routeName = 'FirstScreen';
@@ -16,6 +17,8 @@ class _FirstScreenState extends State<FirstScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppProvider appProvider = Provider.of<AppProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(title: Image.asset('assets/images/logo.png')),
 
@@ -63,7 +66,7 @@ class _FirstScreenState extends State<FirstScreen> {
                         InkWell(
                           onTap: () {
                             isArabic = false;
-                            setState(() {});
+                            appProvider.changeLocale(isArabic);
                           },
                           child: Container(
                             decoration:
@@ -90,7 +93,7 @@ class _FirstScreenState extends State<FirstScreen> {
                         InkWell(
                           onTap: () {
                             isArabic = true;
-                            setState(() {});
+                            appProvider.changeLocale(isArabic);
                           },
                           child: Container(
                             decoration:
@@ -140,7 +143,7 @@ class _FirstScreenState extends State<FirstScreen> {
                         InkWell(
                           onTap: () {
                             isDark = false;
-                            setState(() {});
+                            appProvider.changeTheme(isDark);
                           },
                           child: Container(
                             decoration:
@@ -172,7 +175,7 @@ class _FirstScreenState extends State<FirstScreen> {
                         InkWell(
                           onTap: () {
                             isDark = true;
-                            setState(() {});
+                            appProvider.changeTheme(isDark);
                           },
                           child: Container(
                             decoration:
