@@ -1,4 +1,5 @@
 import 'package:evently/extenstions/build_context_extenstion.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class FirstScreen extends StatefulWidget {
@@ -27,7 +28,7 @@ class _FirstScreenState extends State<FirstScreen> {
               Image.asset('assets/images/intro_bg.png'),
               SizedBox(height: 28),
               Text(
-                'Personalize Your Experience',
+                context.locals?.intro_title1 ?? '',
                 style: context.labelMedium?.copyWith(
                   color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.bold,
@@ -35,14 +36,14 @@ class _FirstScreenState extends State<FirstScreen> {
               ),
               SizedBox(height: 28),
               Text(
-                'Choose your preferred theme and language to get started with a comfortable, tailored experience that suits your style.',
+                context.locals?.intro_title2 ?? '',
                 style: context.labelSmall,
               ),
               SizedBox(height: 28),
               Row(
                 children: [
                   Text(
-                    'Language',
+                    context.locals?.language ?? '',
                     style: context.labelMedium?.copyWith(
                       color: Theme.of(context).primaryColor,
                     ),
@@ -119,7 +120,7 @@ class _FirstScreenState extends State<FirstScreen> {
               Row(
                 children: [
                   Text(
-                    'Theme',
+                    context.locals?.theme ?? '',
                     style: context.labelMedium?.copyWith(
                       color: Theme.of(context).primaryColor,
                     ),
@@ -206,7 +207,7 @@ class _FirstScreenState extends State<FirstScreen> {
               ElevatedButton(
                 onPressed: () {},
                 child: Text(
-                  "Let's Start",
+                  context.locals?.start ?? '',
                   style: context.labelMedium?.copyWith(color: Colors.white),
                 ),
               ),
