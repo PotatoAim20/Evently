@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:evently/theme/theme_app.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LightTheme extends ThemeApp {
@@ -24,7 +25,9 @@ class LightTheme extends ThemeApp {
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.all(16),
         backgroundColor: primaryColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
       ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -35,13 +38,13 @@ class LightTheme extends ThemeApp {
       showUnselectedLabels: true,
     ),
     textTheme: TextTheme(
-      labelLarge: GoogleFonts.inter(fontSize: 22, color: Colors.black),
+      labelLarge: GoogleFonts.inter(fontSize: 22.sp, color: Colors.black),
       labelMedium: GoogleFonts.inter(
-        fontSize: 20,
+        fontSize: 20.sp,
         color: Colors.black,
         fontWeight: FontWeight.bold,
       ),
-      labelSmall: GoogleFonts.inter(fontSize: 16, color: Colors.black),
+      labelSmall: GoogleFonts.inter(fontSize: 16.sp, color: Colors.black),
     ),
   );
 }

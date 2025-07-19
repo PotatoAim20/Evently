@@ -1,19 +1,34 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/app_provider/app_provider.dart';
-import 'package:evently/first_screen.dart';
-import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/screens/add_event/add_event_screen.dart';
+import 'package:evently/screens/home/home_screen.dart';
+import 'package:evently/screens/intro/introduction_screen.dart';
+import 'package:evently/screens/register/login_screen.dart';
+import 'package:evently/screens/register/signup_screen.dart';
 import 'package:evently/theme/dark_theme.dart';
 import 'package:evently/theme/light_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   runApp(
-    ChangeNotifierProvider(create: (_) => AppProvider(), child: Evently()),
+    ChangeNotifierProvider(
+      create: (_) => AppProvider(),
+      child: EasyLocalization(
+        supportedLocales: [Locale('en'), Locale('ar')],
+        path: 'assets/translations',
+        fallbackLocale: Locale('en'),
+        child: MyApp(),
+      ),
+    ),
   );
 }
 
-class Evently extends StatelessWidget {
-  Evently({super.key});
+class MyApp extends StatelessWidget {
+  MyApp({super.key});
 
   final lightThemeApp = LightTheme();
   final darkThemeApp = DarkTheme();
@@ -22,19 +37,32 @@ class Evently extends StatelessWidget {
   Widget build(BuildContext context) {
     AppProvider appProvider = Provider.of<AppProvider>(context);
 
-    return MaterialApp(
-      theme: lightThemeApp.themeData,
-      darkTheme: darkThemeApp.themeData,
-      themeMode: appProvider.themeMode,
+    return ScreenUtilInit(
+      designSize: const Size(393, 841),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          theme: lightThemeApp.themeData,
+          darkTheme: darkThemeApp.themeData,
+          themeMode: appProvider.themeMode,
 
-      debugShowCheckedModeBanner: false,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
 
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      locale: appProvider.locale,
+          debugShowCheckedModeBanner: false,
 
-      routes: {FirstScreen.routeName: (context) => FirstScreen()},
-      initialRoute: FirstScreen.routeName,
+          routes: {
+            IntroductionScreen.routeName: (context) => IntroductionScreen(),
+            LoginScreen.routeName: (context) => LoginScreen(),
+            SignupScreen.routeName: (context) => SignupScreen(),
+            HomeScreen.routeName: (context) => HomeScreen(),
+            AddEventScreen.routeName: (context) => AddEventScreen(),
+          },
+          initialRoute: IntroductionScreen.routeName,
+        );
+      },
     );
   }
 }
