@@ -23,7 +23,7 @@ class DarkTheme extends ThemeApp {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.r),
         backgroundColor: primaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
@@ -42,9 +42,13 @@ class DarkTheme extends ThemeApp {
       labelMedium: GoogleFonts.inter(
         fontSize: 20.sp,
         color: Colors.white,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w700,
       ),
-      labelSmall: GoogleFonts.inter(fontSize: 16.sp, color: Colors.white),
+      labelSmall: GoogleFonts.inter(
+        fontSize: 16.sp,
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+      ),
     ),
   );
 }

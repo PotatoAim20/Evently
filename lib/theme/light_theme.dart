@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class LightTheme extends ThemeApp {
   @override
-  Color get backgroundColor => Colors.white;
+  Color get backgroundColor => Color(0xffF2FEFF);
 
   @override
   Color get primaryColor => Color(0xff5669FF);
@@ -23,10 +23,11 @@ class LightTheme extends ThemeApp {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.r),
         backgroundColor: primaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
+          side: BorderSide(color: Color(0xff5669FF)),
         ),
       ),
     ),
@@ -37,14 +38,19 @@ class LightTheme extends ThemeApp {
       showSelectedLabels: true,
       showUnselectedLabels: true,
     ),
+
     textTheme: TextTheme(
-      labelLarge: GoogleFonts.inter(fontSize: 22.sp, color: Colors.black),
+      labelLarge: GoogleFonts.inter(fontSize: 22.sp, color: Color(0xff1C1C1C)),
       labelMedium: GoogleFonts.inter(
         fontSize: 20.sp,
-        color: Colors.black,
-        fontWeight: FontWeight.bold,
+        color: Color(0xff1C1C1C),
+        fontWeight: FontWeight.w700,
       ),
-      labelSmall: GoogleFonts.inter(fontSize: 16.sp, color: Colors.black),
+      labelSmall: GoogleFonts.inter(
+        fontSize: 16.sp,
+        color: Color(0xff1C1C1C),
+        fontWeight: FontWeight.w500,
+      ),
     ),
   );
 }
