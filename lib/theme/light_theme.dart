@@ -17,10 +17,10 @@ class LightTheme extends ThemeApp {
   ThemeData get themeData => ThemeData(
     primaryColor: primaryColor,
     scaffoldBackgroundColor: backgroundColor,
-    appBarTheme: AppBarTheme(
-      backgroundColor: backgroundColor,
-      centerTitle: true,
-    ),
+    // appBarTheme: AppBarTheme(
+    //   backgroundColor: backgroundColor,
+    //   centerTitle: true,
+    // ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.all(16.r),
@@ -31,14 +31,14 @@ class LightTheme extends ThemeApp {
         ),
       ),
     ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: primaryColor,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.white,
-      showSelectedLabels: true,
-      showUnselectedLabels: true,
-    ),
 
+    // bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    //   backgroundColor: primaryColor,
+    //   selectedItemColor: Colors.white,
+    //   unselectedItemColor: Colors.white,
+    //   showSelectedLabels: true,
+    //   showUnselectedLabels: true,
+    // ),
     textTheme: TextTheme(
       labelLarge: GoogleFonts.inter(fontSize: 22.sp, color: Color(0xff1C1C1C)),
       labelMedium: GoogleFonts.inter(

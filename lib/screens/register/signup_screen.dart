@@ -2,10 +2,10 @@ import 'dart:ui' as ui;
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/extenstions/build_context_extenstion.dart';
+import 'package:evently/screens/home/home_screen.dart';
 import 'package:evently/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SignupScreen extends StatelessWidget {
   static const String routeName = 'SignupScreen';
@@ -15,6 +15,7 @@ class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           'Register',
