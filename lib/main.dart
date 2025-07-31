@@ -7,12 +7,14 @@ import 'package:evently/screens/register/login_screen.dart';
 import 'package:evently/screens/register/signup_screen.dart';
 import 'package:evently/theme/dark_theme.dart';
 import 'package:evently/theme/light_theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await EasyLocalization.ensureInitialized();
   runApp(
     ChangeNotifierProvider(
@@ -60,7 +62,7 @@ class MyApp extends StatelessWidget {
             HomeScreen.routeName: (context) => HomeScreen(),
             AddEventScreen.routeName: (context) => AddEventScreen(),
           },
-          initialRoute: IntroductionScreen.routeName,
+          initialRoute: HomeScreen.routeName,
         );
       },
     );

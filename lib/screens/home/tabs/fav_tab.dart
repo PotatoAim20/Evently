@@ -7,6 +7,10 @@ class FavTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.amber);
+    return Scaffold(
+      backgroundColor: Colors.amber,
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+    );
   }
 }

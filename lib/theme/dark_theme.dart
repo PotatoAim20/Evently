@@ -30,13 +30,13 @@ class DarkTheme extends ThemeApp {
         ),
       ),
     ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: primaryColor,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.white,
-      showSelectedLabels: true,
-      showUnselectedLabels: true,
-    ),
+    // bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    //   backgroundColor: primaryColor,
+    //   selectedItemColor: Colors.white,
+    //   unselectedItemColor: Colors.white,
+    //   showSelectedLabels: true,
+    //   showUnselectedLabels: true,
+    // ),
     textTheme: TextTheme(
       labelLarge: GoogleFonts.inter(fontSize: 22.sp, color: Colors.white),
       labelMedium: GoogleFonts.inter(

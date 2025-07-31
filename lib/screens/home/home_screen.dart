@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<Widget> tabs = [EventsTab(), FavTab(), MapTab(), ProfileTab()];
+  final List<Widget> tabs = [EventsTab(), MapTab(), FavTab(), ProfileTab()];
 
   int currentTab = 0;
 
@@ -34,6 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.only(
+            bottomLeft: Radius.circular(24.r),
+            bottomRight: Radius.circular(24.r),
+          ),
+        ),
         titleSpacing: 16,
         backgroundColor: Color(0xff5669FF),
         toolbarHeight: 174.h,

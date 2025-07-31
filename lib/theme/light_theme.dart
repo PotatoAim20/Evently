@@ -17,10 +17,10 @@ class LightTheme extends ThemeApp {
   ThemeData get themeData => ThemeData(
     primaryColor: primaryColor,
     scaffoldBackgroundColor: backgroundColor,
-    // appBarTheme: AppBarTheme(
-    //   backgroundColor: backgroundColor,
-    //   centerTitle: true,
-    // ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: backgroundColor,
+      centerTitle: true,
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.all(16.r),

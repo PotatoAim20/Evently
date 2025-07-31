@@ -5,16 +5,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final Icon icon;
+  TextEditingController? controller;
+  String? Function(String?)? validator;
 
-  const CustomTextFormField({
+  CustomTextFormField({
     super.key,
     required this.hintText,
     required this.icon,
+    this.controller,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
+      validator: validator,
       decoration: InputDecoration(
         prefixIcon: Icon(icon.icon, color: Color(0xff7B7B7B), size: 24),
         hint: Text(
@@ -30,6 +36,10 @@ class CustomTextFormField extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.r),
         ),
         focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xff7B7B7B)),
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xff7B7B7B)),
           borderRadius: BorderRadius.circular(16.r),
         ),
