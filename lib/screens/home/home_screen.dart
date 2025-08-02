@@ -1,3 +1,4 @@
+import 'package:evently/screens/create_event/create_event_screen.dart';
 import 'package:evently/screens/home/tabs/events_tab.dart';
 import 'package:evently/screens/home/tabs/fav_tab.dart';
 import 'package:evently/screens/home/tabs/map_tab.dart';
@@ -15,15 +16,31 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<Widget> tabs = [EventsTab(), MapTab(), FavTab(), ProfileTab()];
-
   int currentTab = 0;
+  int selectedCategoryIndex = 0;
+
+  final List<String> categories = [
+    'All',
+    'Eating',
+    'Meeting',
+    'Workshop',
+    'Birthday',
+    'Book Club',
+    'Exhibition',
+    'Gaming',
+    'Holiday',
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, CreateEventScreen.routeName);
+        },
         backgroundColor: Color(0xff5669FF),
         elevation: 0,
         shape: RoundedRectangleBorder(
@@ -77,6 +94,48 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
+            SizedBox(height: 8.h),
+            SizedBox(
+              height: 40.h,
+              child: ListView.separated(
+                separatorBuilder: (context, index) => SizedBox(width: 10.w),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      selectedCategoryIndex = index;
+                      setState(() {});
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                        vertical: 8.h,
+                      ),
+                      decoration: BoxDecoration(
+                        border: BoxBorder.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(37.r),
+                        color:
+                            selectedCategoryIndex == index
+                                ? Colors.white
+                                : Colors.transparent,
+                      ),
+                      child: Text(
+                        categories[index],
+                        style: GoogleFonts.inter(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16.sp,
+                          color:
+                              selectedCategoryIndex == index
+                                  ? Colors.blue
+                                  : Colors.white,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                itemCount: categories.length,
+              ),
+            ),
           ],
         ),
       ),
@@ -110,7 +169,13 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
 
-      body: tabs[currentTab],
+      body:
+          [
+            EventsTab(category: categories[selectedCategoryIndex]),
+            MapTab(),
+            FavTab(),
+            ProfileTab(),
+          ][currentTab],
     );
   }
 }

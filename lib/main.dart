@@ -1,6 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/app_provider/app_provider.dart';
-import 'package:evently/screens/add_event/add_event_screen.dart';
+import 'package:evently/screens/create_event/create_event_screen.dart';
 import 'package:evently/screens/home/home_screen.dart';
 import 'package:evently/screens/intro/introduction_screen.dart';
 import 'package:evently/screens/register/login_screen.dart';
@@ -15,6 +16,7 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseFirestore.instance.enableNetwork();
   await EasyLocalization.ensureInitialized();
   runApp(
     ChangeNotifierProvider(
@@ -60,7 +62,7 @@ class MyApp extends StatelessWidget {
             LoginScreen.routeName: (context) => LoginScreen(),
             SignupScreen.routeName: (context) => SignupScreen(),
             HomeScreen.routeName: (context) => HomeScreen(),
-            AddEventScreen.routeName: (context) => AddEventScreen(),
+            CreateEventScreen.routeName: (context) => CreateEventScreen(),
           },
           initialRoute: HomeScreen.routeName,
         );
