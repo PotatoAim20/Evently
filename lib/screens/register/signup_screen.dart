@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/extenstions/build_context_extenstion.dart';
 import 'package:evently/firebase/firebase_manager.dart';
-import 'package:evently/models/userData.dart';
+import 'package:evently/models/user_model.dart';
 import 'package:evently/screens/home/home_screen.dart';
 import 'package:evently/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -117,7 +117,7 @@ class SignupScreen extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      Userdata user = Userdata(
+                      UserModel user = UserModel(
                         name: nameController.text,
                         email: emailController.text,
                         id: "",
@@ -145,7 +145,11 @@ class SignupScreen extends StatelessWidget {
                           );
                         },
                         onSuccess: () {
-                          Navigator.pushNamed(context, HomeScreen.routeName);
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            HomeScreen.routeName,
+                            (route) => false,
+                          );
                         },
                       );
                     }

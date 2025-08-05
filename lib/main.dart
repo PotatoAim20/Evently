@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evently/app_provider/app_provider.dart';
+import 'package:evently/providers/app_provider.dart';
+import 'package:evently/providers/user_provider.dart';
 import 'package:evently/screens/create_event/create_event_screen.dart';
 import 'package:evently/screens/home/home_screen.dart';
 import 'package:evently/screens/intro/introduction_screen.dart';
@@ -19,8 +20,11 @@ Future<void> main() async {
   FirebaseFirestore.instance.enableNetwork();
   await EasyLocalization.ensureInitialized();
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => AppProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => AppProvider()),
+      ],
       child: EasyLocalization(
         supportedLocales: [Locale('en'), Locale('ar')],
         path: 'assets/translations',
@@ -40,6 +44,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppProvider appProvider = Provider.of<AppProvider>(context);
+    UserProvider userProvider = Provider.of<UserProvider>(context);
 
     return ScreenUtilInit(
       designSize: const Size(393, 841),
@@ -64,7 +69,10 @@ class MyApp extends StatelessWidget {
             HomeScreen.routeName: (context) => HomeScreen(),
             CreateEventScreen.routeName: (context) => CreateEventScreen(),
           },
-          initialRoute: HomeScreen.routeName,
+          initialRoute:
+              userProvider.firebaseUser != null
+                  ? HomeScreen.routeName
+                  : IntroductionScreen.routeName,
         );
       },
     );

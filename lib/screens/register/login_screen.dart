@@ -2,18 +2,26 @@ import 'dart:ui' as ui;
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/extenstions/build_context_extenstion.dart';
+import 'package:evently/firebase/firebase_manager.dart';
+import 'package:evently/providers/user_provider.dart';
+import 'package:evently/screens/home/home_screen.dart';
 import 'package:evently/screens/register/signup_screen.dart';
 import 'package:evently/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String routeName = 'LoginScreen';
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -23,9 +31,17 @@ class LoginScreen extends StatelessWidget {
           children: [
             Image.asset('assets/images/logo2.png', height: 163.h, width: 186.w),
             SizedBox(height: 24.h),
-            CustomTextFormField(hintText: 'Email', icon: Icon(Icons.email)),
+            CustomTextFormField(
+              hintText: 'Email',
+              icon: Icon(Icons.email),
+              controller: emailController,
+            ),
             SizedBox(height: 16.h),
-            CustomTextFormField(hintText: 'Password', icon: Icon(Icons.lock)),
+            CustomTextFormField(
+              hintText: 'Password',
+              icon: Icon(Icons.lock),
+              controller: passwordController,
+            ),
             SizedBox(height: 16.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -45,7 +61,38 @@ class LoginScreen extends StatelessWidget {
             ),
             SizedBox(height: 24.h),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                FirebaseManager.login(
+                  email: emailController.text,
+                  password: passwordController.text,
+                  onError: (value) {
+                    showDialog(
+                      context: context,
+                      builder:
+                          (context) => AlertDialog(
+                            title: Text('Error'),
+                            content: Text(value),
+                            actions: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text('Ok'),
+                              ),
+                            ],
+                          ),
+                    );
+                  },
+                  onSuccess: () {
+                    userProvider.initUser();
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      HomeScreen.routeName,
+                      (route) => false,
+                    );
+                  },
+                );
+              },
               child: Text(
                 'Login',
                 style: context.labelSmall?.copyWith(

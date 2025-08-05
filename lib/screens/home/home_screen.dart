@@ -1,11 +1,16 @@
+import 'package:evently/providers/user_provider.dart';
 import 'package:evently/screens/create_event/create_event_screen.dart';
 import 'package:evently/screens/home/tabs/events_tab.dart';
 import 'package:evently/screens/home/tabs/fav_tab.dart';
 import 'package:evently/screens/home/tabs/map_tab.dart';
 import 'package:evently/screens/home/tabs/profile_tab.dart';
+import 'package:evently/screens/register/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'HomeScreen';
@@ -33,6 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider = Provider.of<UserProvider>(context);
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
@@ -51,6 +58,20 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+              userProvider.clearData();
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                LoginScreen.routeName,
+                (route) => false,
+              );
+            },
+            icon: Icon(Icons.exit_to_app, color: Colors.white),
+          ),
+        ],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusGeometry.only(
             bottomLeft: Radius.circular(24.r),
@@ -72,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Text(
-              'John Safwat',
+              userProvider.userModel!.name,
               style: GoogleFonts.inter(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w700,

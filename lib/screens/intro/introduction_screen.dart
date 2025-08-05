@@ -1,7 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evently/app_provider/app_provider.dart';
+import 'package:evently/providers/app_provider.dart';
 import 'package:evently/extenstions/build_context_extenstion.dart';
 import 'package:evently/screens/register/login_screen.dart';
 import 'package:flutter/material.dart';

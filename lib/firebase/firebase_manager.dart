@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/models/task_model.dart';
-import 'package:evently/models/userData.dart';
+import 'package:evently/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class FirebaseManager {
   static CollectionReference<TaskModel> getTasksCollection() {
@@ -9,7 +10,20 @@ class FirebaseManager {
         .collection('Tasks')
         .withConverter<TaskModel>(
           fromFirestore: (snapshot, _) {
-            return TaskModel.fromjson(snapshot.data()!);
+            return TaskModel.fromJson(snapshot.data()!);
+          },
+          toFirestore: (model, _) {
+            return model.toJson();
+          },
+        );
+  }
+
+  static CollectionReference<UserModel> getUsersCollection() {
+    return FirebaseFirestore.instance
+        .collection('Users')
+        .withConverter<UserModel>(
+          fromFirestore: (snapshot, _) {
+            return UserModel.fromJson(snapshot.data()!);
           },
           toFirestore: (model, _) {
             return model.toJson();
@@ -32,19 +46,43 @@ class FirebaseManager {
     bool? isFav,
   }) {
     if (isFav == true) {
-      return getTasksCollection().where('isFav', isEqualTo: isFav).snapshots();
+      return getTasksCollection()
+          .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('isFav', isEqualTo: isFav)
+          .snapshots();
     }
     if (category == 'All' || category == null) {
-      return getTasksCollection().snapshots();
+      return getTasksCollection()
+          .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .snapshots();
     } else {
       return getTasksCollection()
+          .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .where('category', isEqualTo: category)
           .snapshots();
     }
   }
 
+  static Future<void> createUserAccount(UserModel user) {
+    var docRef = getUsersCollection().doc(user.id);
+    return docRef.set(user);
+  }
+
+  static Future<UserModel?> readUser() async {
+    try {
+      DocumentSnapshot<UserModel> docRef =
+          await getUsersCollection()
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .get();
+
+      return docRef.data();
+    } catch (e) {
+      return null;
+    }
+  }
+
   static signUp({
-    required Userdata user,
+    required UserModel user,
     required String password,
     required Function onError,
     required Function onSuccess,
@@ -55,6 +93,9 @@ class FirebaseManager {
             email: user.email,
             password: password,
           );
+
+      user.id = credential.user!.uid;
+      createUserAccount(user);
       onSuccess();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -64,6 +105,28 @@ class FirebaseManager {
       }
     } catch (e) {
       onError(e.toString());
+    }
+  }
+
+  static login({
+    required String email,
+    required String password,
+    required Function onError,
+    required Function onSuccess,
+  }) async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      onSuccess();
+    } on FirebaseAuthException catch (e) {
+      onError(e.message);
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
     }
   }
 }
