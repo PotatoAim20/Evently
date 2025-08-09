@@ -32,13 +32,6 @@ class LightTheme extends ThemeApp {
       ),
     ),
 
-    // bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    //   backgroundColor: primaryColor,
-    //   selectedItemColor: Colors.white,
-    //   unselectedItemColor: Colors.white,
-    //   showSelectedLabels: true,
-    //   showUnselectedLabels: true,
-    // ),
     textTheme: TextTheme(
       labelLarge: GoogleFonts.inter(fontSize: 22.sp, color: Color(0xff1C1C1C)),
       labelMedium: GoogleFonts.inter(
