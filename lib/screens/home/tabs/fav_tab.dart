@@ -125,6 +125,6 @@ class FavTab extends StatelessWidget {
         );
       },
     );
-    ;
+    
   }
 }

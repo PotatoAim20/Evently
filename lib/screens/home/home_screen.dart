@@ -6,7 +6,6 @@ import 'package:evently/screens/home/tabs/map_tab.dart';
 import 'package:evently/screens/home/tabs/profile_tab.dart';
 import 'package:evently/screens/register/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -93,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Text(
-              userProvider.userModel!.name,
+              userProvider.userModel?.name ?? '',
               style: GoogleFonts.inter(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w700,

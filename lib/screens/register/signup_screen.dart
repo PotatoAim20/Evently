@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:ui' as ui;
 
 import 'package:easy_localization/easy_localization.dart';

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/models/task_model.dart';
 import 'package:evently/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class FirebaseManager {
   static CollectionReference<TaskModel> getTasksCollection() {
@@ -115,7 +114,7 @@ class FirebaseManager {
     required Function onSuccess,
   }) async {
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
