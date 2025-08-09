@@ -57,20 +57,20 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
-              userProvider.clearData();
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                LoginScreen.routeName,
-                (route) => false,
-              );
-            },
-            icon: Icon(Icons.exit_to_app, color: Colors.white),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       FirebaseAuth.instance.signOut();
+        //       userProvider.clearData();
+        //       Navigator.pushNamedAndRemoveUntil(
+        //         context,
+        //         LoginScreen.routeName,
+        //         (route) => false,
+        //       );
+        //     },
+        //     icon: Icon(Icons.exit_to_app, color: Colors.white),
+        //   ),
+        // ],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusGeometry.only(
             bottomLeft: Radius.circular(24.r),
@@ -193,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
           [
             EventsTab(category: categories[selectedCategoryIndex]),
             MapTab(),
-            FavTab(),
+            FavTab(category: categories[selectedCategoryIndex]),
             ProfileTab(),
           ][currentTab],
     );

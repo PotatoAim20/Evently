@@ -3,6 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/providers/app_provider.dart';
 import 'package:evently/providers/user_provider.dart';
 import 'package:evently/screens/create_event/create_event_screen.dart';
+import 'package:evently/screens/edit_event/edit_event_screen.dart';
+import 'package:evently/screens/event_details/event_details_screen.dart';
 import 'package:evently/screens/home/home_screen.dart';
 import 'package:evently/screens/intro/introduction_screen.dart';
 import 'package:evently/screens/register/login_screen.dart';
@@ -68,6 +70,8 @@ class MyApp extends StatelessWidget {
             SignupScreen.routeName: (context) => SignupScreen(),
             HomeScreen.routeName: (context) => HomeScreen(),
             CreateEventScreen.routeName: (context) => CreateEventScreen(),
+            EventDetails.routeName: (context) => EventDetails(),
+            EditEvent.routeName: (context) => EditEvent(),
           },
           initialRoute:
               userProvider.firebaseUser != null

@@ -8,13 +8,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 class FavTab extends StatelessWidget {
   static String routeName = 'FavTab';
+  String category;
 
-  const FavTab({super.key});
+  FavTab({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<TaskModel>>(
-      stream: FirebaseManager.getTasks(isFav: true),
+      stream: FirebaseManager.getTasks(isFav: true, category: category),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -125,6 +126,5 @@ class FavTab extends StatelessWidget {
         );
       },
     );
-    
   }
 }

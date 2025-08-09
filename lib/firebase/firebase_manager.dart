@@ -40,14 +40,26 @@ class FirebaseManager {
     await doc.set(task);
   }
 
+  static Future<void> updateEvent(TaskModel task) async {
+    var doc = getTasksCollection().doc(task.id);
+    await doc.update(task.toJson());
+  }
+
   static Stream<QuerySnapshot<TaskModel>> getTasks({
     String? category,
     bool? isFav,
   }) {
-    if (isFav == true) {
+    if (isFav == true && category == 'All') {
       return getTasksCollection()
           .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .where('isFav', isEqualTo: isFav)
+          .snapshots();
+    }
+    if (isFav == true && category != 'All') {
+      return getTasksCollection()
+          .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('isFav', isEqualTo: isFav)
+          .where('category', isEqualTo: category)
           .snapshots();
     }
     if (category == 'All' || category == null) {
