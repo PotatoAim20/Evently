@@ -52,6 +52,7 @@ class ProfileTab extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xffFF5659),
+                side: BorderSide(color: Colors.transparent),
               ),
               child: Row(
                 children: [

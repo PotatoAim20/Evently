@@ -3,20 +3,21 @@ import 'dart:ui' as ui;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/providers/app_provider.dart';
 import 'package:evently/extenstions/build_context_extenstion.dart';
+import 'package:evently/screens/intro/onboarding_screen.dart';
 import 'package:evently/screens/register/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-class IntroductionScreen extends StatefulWidget {
+class IntroScreen extends StatefulWidget {
   static String routeName = 'FirstScreen';
-  const IntroductionScreen({super.key});
+  const IntroScreen({super.key});
 
   @override
-  State<IntroductionScreen> createState() => _IntroductionScreenState();
+  State<IntroScreen> createState() => _IntroScreenState();
 }
 
-class _IntroductionScreenState extends State<IntroductionScreen> {
+class _IntroScreenState extends State<IntroScreen> {
   bool isDark = false;
 
   @override
@@ -213,7 +214,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, LoginScreen.routeName);
+                Navigator.pushNamed(context, OnboardingScreen.routeName);
               },
               child: Text(
                 "intro_btn".tr(),
